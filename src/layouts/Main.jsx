@@ -1,10 +1,11 @@
 
-import React from 'react';
+// import React from 'react';
+import NavBar from '../Components/shared/NavBar/NavBar';
 
 const Main = () => {
   return (
     <div>
-      <h1>Welcome TO AirCNC</h1>
+     <NavBar></NavBar>
     </div>
   );
 };
