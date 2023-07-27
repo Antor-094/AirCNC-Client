@@ -5,7 +5,7 @@ import qs from 'query-string'
 // import { IconBase } from "react-icons";
 
 const CategoryBox = ({label, icon:Icon }) => {
-    const [params, setParams] = useSearchParams()
+    const [params] = useSearchParams()
     
     // console.log(value)
     const navigate = useNavigate()
