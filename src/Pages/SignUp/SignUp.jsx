@@ -5,6 +5,7 @@ import { useContext } from "react";
 // import { AuthContext } from '../../providers/AuthProvider'
 import { TbFidgetSpinner } from "react-icons/tb";
 import { AuthContext } from "../../providers/AuthProvider";
+import { saveUer } from "../../api/auth";
 
 const SignUp = () => {
   const {
@@ -47,10 +48,11 @@ const SignUp = () => {
       .then((imageData) => {
         const imageUrl = imageData.data.display_url;
         createUser(email, password)
-          .then(() => {
+          .then((result) => {
             updateUserProfile(name, imageUrl)
               .then(() => {
                 toast.success("SignUp successful");
+                saveUer(result.user)
                 navigate(from, { replace: true });
               })
               .catch((err) => {
@@ -78,6 +80,7 @@ const SignUp = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
+        saveUer(result.user)
         navigate(from, { replace: true });
       })
       .catch((err) => {
