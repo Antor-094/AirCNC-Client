@@ -1,6 +1,6 @@
 
 
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
 import Main from "../layouts/Main";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
@@ -11,6 +11,7 @@ import RoomDetails from "../Pages/RoomDetails/RoomDetails";
 import PrivateRoute from '../routes/PrivateRoute'
 import DashboardLayout from "../layouts/DashboardLayout";
 import AddRoom from "../Pages/Dashboard/AddRoom";
+import { getRoom } from "../api/rooms";
 
 
 export const router = createBrowserRouter([
@@ -24,7 +25,8 @@ export const router = createBrowserRouter([
       },
       {
         path:'/room/:id',
-        element:<PrivateRoute><RoomDetails></RoomDetails></PrivateRoute>
+        element:<PrivateRoute><RoomDetails></RoomDetails></PrivateRoute>,
+        loader:({params})=>getRoom(params.id)
       },
     ]
   },

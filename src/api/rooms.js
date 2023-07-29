@@ -20,3 +20,13 @@
     const data = await response.json()
     return data
  }
+
+ //Get the single room 
+
+ export const getRoom = async id =>{
+
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/room/${id}`)
+
+    const data = await response.json()
+    return data
+ }
