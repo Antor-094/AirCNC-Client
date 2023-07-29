@@ -3,6 +3,8 @@ import AddRoomForm from "../../Components/Forms/AddRoomForm";
 import { imageUpload } from "../../api/utils";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import { addRoom } from "../../api/rooms";
+import { toast } from "react-hot-toast";
 
 const AddRoom = () => {
   const [loading, setLoading] = useState(false);
@@ -52,7 +54,16 @@ const AddRoom = () => {
           category,
 
         };
-        console.log(roomData)
+      
+        //post room data to server
+        addRoom(roomData).then(data=>{
+          console.log(data)
+          toast.success("Room Added successfully");
+        }).catch(err=>{
+          console.log(err)
+        })
+
+        // console.log(roomData)
         setLoading(false);
       })
       .catch((err) => {
