@@ -7,9 +7,11 @@ import { FcSettings } from 'react-icons/fc'
 import { AiOutlineBars } from 'react-icons/ai'
 import { BsFillHouseAddFill } from 'react-icons/bs'
 import Logo from '../shared/NavBar/Logo'
+import logoImg from '../../assets/images/logo.png'
+
 const Sidebar = () => {
   const navigate = useNavigate()
-  const [toggle, setToggle] = useState(false)
+  const [setToggle] = useState(false)
   const { user, logOut } = useContext(AuthContext)
 
   const [isActive, setActive] = useState('false')
@@ -27,10 +29,10 @@ const Sidebar = () => {
   return (
     <>
       {/* Small Screen Navbar */}
-      <div className='bg-gray-100 text-gray-800 flex justify-between md:hidden'>
+      <div className='bg-gray-100 text-gray-800 flex justify-between md:hidden p-1'>
         <div>
-          <div className='block cursor-pointer p-4 font-bold'>
-            <Logo />
+          <div className='block bg-rose-100  cursor-pointer p-4 font-bold'>
+          <img className="rounded-md" src={logoImg} alt="logo" width="90" height="80" />
           </div>
         </div>
 
