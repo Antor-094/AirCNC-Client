@@ -3,14 +3,17 @@ import { DateRange } from 'react-date-range'
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
 
-const Calender = () => {
+const Calender = ({value,handleSelect}) => {
   return (
     <DateRange
-      rangeColors={['#262626']}
-      date={new Date()}
+    ranges={[value]}
+    onChange={handleSelect}
+      rangeColors={['#F43F5E']}
+      date={value.startDate}
       direction='vertical'
       showDateDisplay={false}
-      minDate={new Date()}
+      minDate={value.startDate}
+      maxDate={value.endDate}
     />
   )
 }
