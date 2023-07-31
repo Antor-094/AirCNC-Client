@@ -6,14 +6,18 @@ import Calender from "./Calender";
 import { AuthContext } from "../../providers/AuthProvider";
 import BookingModal from "../Modal/BookingModal";
 import { formatDistance } from "date-fns";
+import { addBooking, updateStatus } from "../../api/bookings";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const RoomReservation = ({ roomData }) => {
   const { user, role } = useContext(AuthContext);
-  const [ isOpen, setIsOpen ] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
   const closeModal = () => {
     setIsOpen(false);
   };
-// console.log(isOpen)
+  // console.log(isOpen)
   const totalPrice =
     parseFloat(
       formatDistance(new Date(roomData.to), new Date(roomData.from)).split(
@@ -33,11 +37,28 @@ const RoomReservation = ({ roomData }) => {
     price: totalPrice,
     to: value.endDate,
     from: value.startDate,
+    title: roomData.title,
+    roomId: roomData._id
   });
   const handleSelect = () => {
     setValue({ ...value });
   };
   const modalHandler = () => {
+    addBooking(bookingInfo)
+      .then((data) => {
+        console.log(data);
+        updateStatus(roomData._id,true).then(data=>{
+          console.log(data)
+          toast.success("Booking successful");
+          navigate('/dashboard/my-bookings')
+          closeModal()
+        })
+      
+      })
+      .catch((err) => {
+        closeModal()
+        console.log(err);
+      });
     console.log(bookingInfo);
   };
   return (
@@ -55,7 +76,7 @@ const RoomReservation = ({ roomData }) => {
       <div className="p-4">
         <Button
           onClick={() => setIsOpen(true)}
-          disabled={roomData.host.email === user.email}
+          disabled={roomData.host.email === user.email || roomData.booked}
           label="Reserve"
         />
       </div>
